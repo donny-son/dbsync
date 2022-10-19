@@ -7,6 +7,7 @@ from dbsync import backup, seed, restore, insert_csv, export_csv, storage_cleanu
 
 
 def main():
+    os.makedirs("storage", exist_ok=True)
     csv_file = "./storage/jachi_bills_today.csv"
 
     print("Seed Start")

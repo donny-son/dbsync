@@ -6,6 +6,9 @@ from sh import pg_dump, psql, pg_restore
 
 load_dotenv()
 
+os.makedirs("tests/storage", exist_ok=True)
+test_csv_file = "./tests/storage/test_jachi_bills.csv"
+
 
 def test_commands_exists():
     psql_process = psql("-V")
@@ -24,7 +27,7 @@ def test_psql_connection():
 
 
 def test_get_csv():
-    with open(f"./storage/test_jachi_bills.csv", "w") as f:
+    with open(test_csv_file, "w") as f:
         proc = psql(
             os.getenv("MAIN_DATABASE_URL"),
             "-c",
@@ -35,7 +38,7 @@ def test_get_csv():
 
 
 def test_insert_from_csv():
-    with open(f"./storage/test_jachi_bills.csv", "r") as f:
+    with open(test_csv_file, "r") as f:
         proc = psql(
             os.getenv("AWS_DATABASE_URL"),
             "-c",
