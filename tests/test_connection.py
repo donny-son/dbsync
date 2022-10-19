@@ -37,16 +37,16 @@ def test_get_csv():
         assert proc.exit_code == 0, f"copy csv failed"
 
 
-def test_insert_from_csv():
-    with open(test_csv_file, "r") as f:
-        proc = psql(
-            os.getenv("AWS_DATABASE_URL"),
-            "-c",
-            f"\\COPY jachi_bills FROM STDIN WITH CSV HEADER",
-            _in=f,
-        )
-        assert proc.exit_code == 0, f"copy csv failed"
-        read = psql(
-            os.getenv("AWS_DATABASE_URL"), "-c", f"SELECT * FROM jachi_bills LIMIT 5;"
-        )
-        assert read.exit_code == 0, f"read jachi_bills table failed"
+# def test_insert_from_csv():
+#     with open(test_csv_file, "r") as f:
+#         proc = psql(
+#             os.getenv("AWS_DATABASE_URL"),
+#             "-c",
+#             f"\\COPY jachi_bills FROM STDIN WITH CSV HEADER",
+#             _in=f,
+#         )
+#         assert proc.exit_code == 0, f"copy csv failed"
+#         read = psql(
+#             os.getenv("AWS_DATABASE_URL"), "-c", f"SELECT * FROM jachi_bills LIMIT 5;"
+#         )
+#         assert read.exit_code == 0, f"read jachi_bills table failed"
